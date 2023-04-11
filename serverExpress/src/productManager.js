@@ -15,6 +15,7 @@ class ProductManager {
         price,
         thumbnail,
         code: prods.length * 2,
+        status: true,
         stock,
       };
 

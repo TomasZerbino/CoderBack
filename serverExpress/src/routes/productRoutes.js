@@ -30,13 +30,33 @@ productRouter.get("/:pid", async (req, res) => {
   }
 });
 
-// productRouter.post();
-
-productRouter.put("", async (req, res) => {
-  try {
-  } catch (error) {}
+productRouter.post("/", async (req, res) => {
+  const prod = req.body;
+  const newProd = await product.addProducts(
+    prod.title,
+    prod.description,
+    prod.price,
+    prod.thumbnail,
+    prod.stock
+  );
+  res.send(newProd);
 });
 
-// productRouter.delete();
+productRouter.put("/:pid", async (req, res) => {
+  try {
+    const updatedProd = await product.updateProduct(
+      parseInt(req.params.pid),
+      req.body
+    );
+    res.send(updatedProd);
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+productRouter.delete("/:pid", async (req, res) => {
+  const deletedProd = await product.deleteProduct(parseInt(req.params.pid));
+  res.send(deletedProd);
+});
 
 module.exports = productRouter;

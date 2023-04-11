@@ -1,6 +1,6 @@
 [
   {
-    "title": "producto prueba",
+    "title": "producto prueba 102",
     "description": "Este es un producto prueba",
     "price": 200,
     "thumbnail": "Sin imagen",
@@ -16,11 +16,12 @@
     "stock": "25"
   },
   {
-    "title": "producto prueba",
+    "title": "producto prueba 102",
     "description": "Este es un producto prueba",
     "price": 200,
     "thumbnail": "Sin imagen",
-    "code": 34,
-    "stock": "25"
+    "code": 6,
+    "status": true,
+    "stock": 35
   }
 ]
