@@ -12,9 +12,11 @@ productRouter.get("/", async (req, res) => {
     if (req.query.limit) {
       const limitProd = prod;
       limitProd.splice(req.query.limit, prod.length);
-      res.send({ ...limitProd });
+      let prods = { product: limitProd };
+      res.render("home", prods);
     } else {
-      res.send({ ...prod });
+      let prods = { product: prod };
+      res.render("home", prods);
     }
   } catch (error) {
     console.log(error);
