@@ -1,11 +1,14 @@
 const express = require("express");
 const routes = require("./routes");
+const objectConfig = require("./config/objectConfig.js");
 const cookieParser = require("cookie-parser");
 const handlebars = require("express-handlebars");
 const { Server } = require("socket.io");
 const { socketProduct } = require("./utils/socketProduct");
 
 const app = express();
+
+objectConfig.connectDB();
 
 const httpServer = app.listen(8080, () => {
   console.log("aplicacion corriendo en puerto 8080");
