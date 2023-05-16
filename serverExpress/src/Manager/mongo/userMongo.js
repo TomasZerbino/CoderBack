@@ -1,3 +1,5 @@
+const { usertModel } = require("./models/user.model");
+
 class UserManagerMongo {
   async getUsers() {}
   async getUserById() {}
@@ -6,4 +8,4 @@ class UserManagerMongo {
   async deleteUser() {}
 }
 
-module.exports = UserManagerMongo;
+module.exports = new UserManagerMongo();

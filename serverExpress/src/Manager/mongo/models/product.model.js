@@ -1,4 +1,5 @@
 const { Schema, model } = require("mongoose");
+const mongoosePaginate = require("mongoose-paginate-v2");
 
 const collection = "products";
 
@@ -26,6 +27,8 @@ const productSchema = new Schema({
     required: true,
   },
 });
+
+productSchema.plugin(mongoosePaginate);
 
 const productModel = model(collection, productSchema);
 

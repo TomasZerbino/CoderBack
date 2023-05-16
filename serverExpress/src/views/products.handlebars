@@ -1,0 +1,19 @@
+<div>
+    <ul>
+    {{#each products}}
+        <li>
+            <strong>Product:  {{this.title}} -</strong>
+            <strong>Description: </strong>{{this.description}} -
+            <strong>Price: </strong>{{this.price}} 
+        </li>
+    {{/each}}
+    </ul>
+
+    {{#if hasPrevPage}}
+        <a href="/products?page={{prevPage}}">Anterior</a>
+    {{/if}}
+    {{#if hasNextPage}}
+        <a href="/products?page={{nextPage}}">Siguiente</a>
+    {{/if}}
+
+</div>

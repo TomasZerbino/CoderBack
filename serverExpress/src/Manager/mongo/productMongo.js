@@ -1,9 +1,13 @@
 const { productModel } = require("./models/product.model");
 
 class ProductManagerMongo {
-  async getProducts() {
+  async getProducts(pages) {
     try {
-      await productModel.find({});
+      const prods = await productModel.paginate(
+        {},
+        { limit: 10, page: pages, lean: true }
+      );
+      return prods;
     } catch (error) {
       return new Error(error);
     }
@@ -38,4 +42,4 @@ class ProductManagerMongo {
   }
 }
 
-module.exports = ProductManagerMongo;
+module.exports = new ProductManagerMongo();
