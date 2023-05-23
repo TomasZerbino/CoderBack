@@ -1,7 +1,13 @@
-const { usertModel } = require("./models/user.model");
+const { userModel } = require("./models/user.model");
 
 class UserManagerMongo {
-  async getUsers() {}
+  async getUsers(pages) {
+    const users = await userModel.paginate(
+      {},
+      { limit: 10, page: pages, lean: true }
+    );
+    return users;
+  }
   async getUserById() {}
   async addUser() {}
   async updateUser() {}

@@ -11,6 +11,7 @@ const cartSchema = new Schema({
       },
     },
   ],
+  quantity: Number,
 });
 
 const cartModel = model(collection, cartSchema);

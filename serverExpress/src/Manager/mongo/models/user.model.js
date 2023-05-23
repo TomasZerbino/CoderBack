@@ -18,7 +18,12 @@ const userSchema = new Schema({
     require: true,
     unique: true,
   },
-  gender: String,
+  password: {
+    type: String,
+    require: true,
+  },
+  admin: Boolean,
+  //gender: String,
 });
 
 userSchema.plugin(mongoosePaginate);

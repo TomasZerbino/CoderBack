@@ -1,11 +1,13 @@
 const { Router } = require("express");
 const userManager = require("../Manager/mongo/userMongo");
+const { isAdmin } = require("../middleware/isAdmin");
 
 const userRouter = Router();
 
-userRouter.get("/", async (req, res) => {
+userRouter.get("/", isAdmin, async (req, res) => {
   try {
-    const users = await userManager.getUsers();
+    const users = await userManager.getUsers(1);
+    res.send(users);
   } catch (error) {
     console.log(error);
   }
