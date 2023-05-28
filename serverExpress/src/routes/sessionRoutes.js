@@ -17,8 +17,15 @@ sessionRouter.post("/register", async (req, res) => {
       email,
       password,
     };
-    const result = await userModel.create(newUser);
 
+    const user = await userModel.create(newUser);
+
+    req.session.user = {
+      email,
+      first_name: user.first_name,
+      last_name: user.last_name,
+      role: "user",
+    };
     res.redirect("/products");
   } catch (error) {
     console.log(error);
@@ -28,7 +35,20 @@ sessionRouter.post("/register", async (req, res) => {
 sessionRouter.post("/login", async (req, res) => {
   try {
     const { email, password } = req.body;
-
+    if (email === "adminCoder@coder.com" && password === "adminCoder123") {
+      const user = {
+        email: "adminCoder@coder.com",
+        first_name: "Admin",
+        last_name: "Admin",
+      };
+      req.session.user = {
+        email,
+        first_name: user.first_name,
+        last_name: user.last_name,
+        role: "admin",
+      };
+      res.redirect("/products");
+    }
     const user = await userModel.findOne({ email, password });
 
     if (!user) return res.send("Email o contraseña incorrecta");
@@ -37,7 +57,7 @@ sessionRouter.post("/login", async (req, res) => {
       email,
       first_name: user.first_name,
       last_name: user.last_name,
-      role: "admin",
+      role: "user",
     };
 
     res.redirect("/products");

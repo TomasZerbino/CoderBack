@@ -1,5 +1,6 @@
 const { Router } = require("express");
 const productManager = require("../Manager/mongo/productMongo.js");
+const { chekLogin } = require("../middleware/chekLogin.js");
 const productRouter = Router();
 
 productRouter.get("/", async (req, res) => {
@@ -14,7 +15,7 @@ productRouter.get("/", async (req, res) => {
       hasPrevPage,
       prevPage,
       nextPage,
-      nombre: req.session.user.first_name,
+      nombre: req.session.user?.first_name,
     });
     console.log(req.session);
   } catch (error) {

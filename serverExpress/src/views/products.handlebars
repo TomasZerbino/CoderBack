@@ -1,5 +1,7 @@
 <div>
-    <h1>hola {{nombre}}</h1>
+    {{#if nombre}}
+        <h1>hola {{nombre}}</h1>
+    {{/if}}
     <ul>
     {{#each products}}
         <li>
@@ -17,4 +19,8 @@
         <a href="/products?page={{nextPage}}">Siguiente</a>
     {{/if}}
 
-</div>
+    <form action="/session/logout" method="post">
+        <input type="submit" value="Logout">
+    </form>
+    
+</div> 
