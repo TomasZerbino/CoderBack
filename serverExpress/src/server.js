@@ -8,6 +8,11 @@ const cookieParser = require("cookie-parser");
 const handlebars = require("express-handlebars");
 const { Server } = require("socket.io");
 const { socketProduct } = require("./utils/socketProduct");
+const {
+  initPassport,
+  initPassportGithub,
+} = require("./config/passport.config");
+const passport = require("passport");
 
 const app = express();
 
@@ -44,9 +49,10 @@ app.use(
 );
 app.use(cookieParser());
 
-// app.get("/home", (req, res) => {
-//   res.render("home", {});
-// });
+initPassport();
+initPassportGithub();
+passport.use(passport.initialize());
+passport.use(passport.session());
 
 socketProduct(io);
 

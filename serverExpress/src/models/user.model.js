@@ -26,7 +26,7 @@ const userSchema = new Schema({
   //gender: String,
 });
 
-userSchema.plugin(mongoosePaginate);
+// userSchema.plugin(mongoosePaginate);
 
 const userModel = model(collection, userSchema);
 
