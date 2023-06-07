@@ -8,11 +8,12 @@ const cookieParser = require("cookie-parser");
 const handlebars = require("express-handlebars");
 const { Server } = require("socket.io");
 const { socketProduct } = require("./utils/socketProduct");
-const {
-  initPassport,
-  initPassportGithub,
-} = require("./config/passport.config");
+// const {
+//   initPassport,
+//   initPassportGithub,
+// } = require("./config/passport.config");
 const passport = require("passport");
+const { initPassport } = require("./passport-jwt/passportConfig");
 
 const app = express();
 
@@ -32,27 +33,27 @@ app.set("view engine", "handlebars");
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use("/static", express.static(__dirname + "/public"));
-app.use(
-  session({
-    store: create({
-      mongoUrl:
-        "mongodb+srv://tomaszerbino:tomaszr@coderback.fqqi5e9.mongodb.net/backCoder",
-      mongoOptions: {
-        useNewUrlParser: true,
-      },
-      ttl: 100000 * 33,
-    }),
-    secret: "secretw",
-    resave: true,
-    saveUninitialized: true,
-  })
-);
+// app.use(
+//   session({
+//     store: create({
+//       mongoUrl:
+//         "mongodb+srv://tomaszerbino:tomaszr@coderback.fqqi5e9.mongodb.net/backCoder",
+//       mongoOptions: {
+//         useNewUrlParser: true,
+//       },
+//       ttl: 100000 * 33,
+//     }),
+//     secret: "secretw",
+//     resave: true,
+//     saveUninitialized: true,
+//   })
+// );
 app.use(cookieParser());
 
 initPassport();
-initPassportGithub();
+// initPassportGithub();
 passport.use(passport.initialize());
-passport.use(passport.session());
+// passport.use(passport.session());
 
 socketProduct(io);
 

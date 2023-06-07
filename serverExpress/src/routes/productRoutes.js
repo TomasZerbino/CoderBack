@@ -15,7 +15,7 @@ productRouter.get("/", async (req, res) => {
       hasPrevPage,
       prevPage,
       nextPage,
-      nombre: req.session.user?.first_name,
+      nombre: null,
     });
     console.log(req.session);
   } catch (error) {
