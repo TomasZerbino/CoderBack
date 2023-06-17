@@ -6,7 +6,7 @@ const GithubStrategy = require("passport-github2");
 
 const LocalStrategy = local.Strategy;
 
-const initPassport = () => {
+const initPassportLocal = () => {
   passport.use(
     "register",
     new LocalStrategy(
@@ -58,7 +58,7 @@ const initPassport = () => {
 
           if (!userDB) return done(null, false);
 
-          if (!isValidPassword(password, userDB)) return done(null, false);
+          if (!isValidPassword(userDB, password)) return done(null, false);
 
           return done(null, userDB);
         } catch (error) {
@@ -112,6 +112,6 @@ const initPassportGithub = () => {
 };
 
 module.exports = {
-  initPassport,
+  initPassportLocal,
   initPassportGithub,
 };

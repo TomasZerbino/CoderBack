@@ -8,10 +8,10 @@ const cookieParser = require("cookie-parser");
 const handlebars = require("express-handlebars");
 const { Server } = require("socket.io");
 const { socketProduct } = require("./utils/socketProduct");
-// const {
-//   initPassport,
-//   initPassportGithub,
-// } = require("./config/passport.config");
+const {
+  initPassportLocal,
+  initPassportGithub,
+} = require("./config/passport.config");
 const passport = require("passport");
 const { initPassport } = require("./passport-jwt/passportConfig");
 
@@ -50,8 +50,11 @@ app.use("/static", express.static(__dirname + "/public"));
 // );
 app.use(cookieParser());
 
+// @fix: Se deben incluir las estrategias ya desarrolladas; para permitir el login local y por github
+initPassportLocal();
+initPassportGithub();
+// @fix: Es correcto, pero funciona solo para JWT, faltan las estrategias anteriores
 initPassport();
-// initPassportGithub();
 passport.use(passport.initialize());
 // passport.use(passport.session());
 
