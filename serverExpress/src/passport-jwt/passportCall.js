@@ -1,8 +1,9 @@
 const passport = require("passport");
 
-const passportCall = (strategy) => {
+// @fix: debe recibir options
+const passportCall = (strategy, options) => {
   return async (req, res, next) => {
-    passport.authenticate(strategy, function (err, user, info) {
+    passport.authenticate(strategy, options, function (err, user, info) {
       if (err) return next(err);
       if (!user) {
         return res.status(401).send({
