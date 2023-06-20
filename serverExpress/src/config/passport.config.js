@@ -85,8 +85,8 @@ const initPassportGithub = () => {
           if (!user) {
             const newUser = {
               first_name: profile._json.name,
-              last_name: profile.last_name,
-              email: profile._json.id,
+              last_name: "",
+              email: profile._json.email,
               password: "",
             };
             const result = await userModel.create(newUser);
