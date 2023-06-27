@@ -26,20 +26,20 @@ class ProductManagerMongo {
       return new Error(error);
     }
   }
-  async updateProduct(pid) {
+  async updateProduct(pid, prod) {
     try {
-      productModel;
+      return await productModel.updateOne({ _id: pid }, { prod });
     } catch (error) {
       return new Error(error);
     }
   }
   async deleteProduct(pid) {
     try {
-      productModel;
+      return await productModel.findOneAndDelete({ _id: pid });
     } catch (error) {
       return new Error(error);
     }
   }
 }
 
-module.exports = new ProductManagerMongo();
+module.exports = ProductManagerMongo;

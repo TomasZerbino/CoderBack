@@ -1,6 +1,5 @@
 const passport = require("passport");
 
-// @fix: debe recibir options
 const passportCall = (strategy, options) => {
   return async (req, res, next) => {
     passport.authenticate(strategy, options, function (err, user, info) {

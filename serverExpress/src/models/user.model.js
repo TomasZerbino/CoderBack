@@ -22,8 +22,15 @@ const userSchema = new Schema({
     type: String,
     require: true,
   },
-  admin: Boolean,
-  //gender: String,
+  cart: [
+    {
+      cart: {
+        type: Schema.Types.ObjectId,
+        ref: "cart",
+      },
+    },
+  ],
+  role: { type: String, default: "user" },
 });
 
 // userSchema.plugin(mongoosePaginate);

@@ -56,6 +56,19 @@ const initPassportLocal = () => {
         try {
           const userDB = await userModel.findOne({ email: username });
 
+          if (
+            username === process.env.ADMIN_ID &&
+            password === process.env.ADMIN_PASS
+          ) {
+            const user = {
+              email: "adminCoder@coder.com",
+              first_name: "Admin",
+              last_name: "Admin",
+              role: "admin",
+            };
+            return done(null, user);
+          }
+
           if (!userDB) return done(null, false);
 
           if (!isValidPassword(userDB, password)) return done(null, false);

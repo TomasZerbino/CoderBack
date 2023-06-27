@@ -1,74 +1,27 @@
 const { Router } = require("express");
-const { userModel } = require("../models/user.model");
 const passport = require("passport");
 const { generateToken } = require("../utils/jwt");
 const { createHash } = require("../utils/bcryptHash");
 const { passportCall } = require("../passport-jwt/passportCall");
 const { authorization } = require("../passport-jwt/authorizationJwtRole");
+const {
+  login,
+  register,
+  logout,
+  github,
+} = require("../controllers/sessionController");
 
 const sessionRouter = Router();
 
-sessionRouter.post(
-  "/login",
-  passportCall("login", {
-    session: false,
-  }),
-  async (req, res) => {
-    try {
-      const { user } = req;
-      const access_token = generateToken({
-        email: user.email,
-        first_name: user.first_name,
-        last_name: user.last_name,
-        role: "user",
-      });
-
-      console.log(access_token);
-
-      res
-        .cookie("coderCookieToken", access_token)
-        .send({ message: "login success", access_token });
-    } catch (error) {
-      console.log(error);
-    }
-  }
-);
+sessionRouter.post("/login", passportCall("login", { session: false }), login);
 
 sessionRouter.post(
   "/register",
-  passportCall("register", {
-    session: false,
-  }),
-  async (req, res) => {
-    try {
-      const { user } = req;
-      const access_token = generateToken({
-        email: user.email,
-        first_name: user.first_name,
-        last_name: user.last_name,
-        role: "user",
-      });
-
-      res
-        .cookie("coderCookieToken", access_token, {
-          maxAge: 60 * 60 * 100,
-          httpOnly: true,
-        })
-        .send({ message: "login success", access_token });
-    } catch (error) {
-      console.log(error);
-    }
-  }
+  passportCall("register", { session: false }),
+  register
 );
 
-sessionRouter.post("/logout", async (req, res) => {
-  try {
-    res.clearCookie("coderCookieToken");
-    res.send("logout exitoso");
-  } catch (error) {
-    console.log(error);
-  }
-});
+sessionRouter.post("/logout", logout);
 
 sessionRouter.get(
   "/current",
@@ -81,30 +34,15 @@ sessionRouter.get(
   }
 );
 
-// @fix: deben mantenerse los endpoints para que el login por github siga funcionando
 sessionRouter.get(
   "/github",
   passportCall("github", { scope: ["user:email"], session: false })
 );
+
 sessionRouter.get(
   "/githubcb",
   passportCall("github", { failureRedirect: "/view/login" }),
-  async (req, res) => {
-    const { user } = req;
-    const access_token = generateToken({
-      email: user.email,
-      first_name: user.first_name,
-      last_name: user.last_name,
-      role: "user",
-    });
-
-    res
-      .cookie("coderCookieToken", access_token, {
-        maxAge: 60 * 60 * 100,
-        httpOnly: true,
-      })
-      .redirect("/products");
-  }
+  github
 );
 
 module.exports = sessionRouter;

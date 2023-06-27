@@ -1,12 +1,18 @@
 const { connect } = require("mongoose");
+const dotenv = require("dotenv");
+const { commander } = require("../utils/commander");
+const { MongoSingleton } = require("../utils/singleton");
 
-let url =
-  "mongodb+srv://tomaszerbino:tomaszr@coderback.fqqi5e9.mongodb.net/backCoder";
+const { mode } = commander.opts();
+
+dotenv.config({
+  path: mode === "development" ? "./.env.development" : "./.env.production",
+});
+
+let url = process.env.MONGO_URL_LOCAL;
 
 module.exports = {
-  jwtSecretKey: "frasesecreta",
-  connectDB: () => {
-    connect(url);
-    console.log("DB conectada");
-  },
+  port: process.env.PORT,
+  jwtSecretKey: process.env.JWT_SECRET_KEY,
+  connectDB: MongoSingleton.getInstance(),
 };

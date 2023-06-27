@@ -24,7 +24,11 @@ const initPassport = () => {
         secretOrKey: objectConfig.jwtSecretKey,
       },
       async (jwt_payload, donde) => {
-        return donde(null, jwt_payload);
+        try {
+          return donde(null, jwt_payload);
+        } catch (error) {
+          return donde(error);
+        }
       }
     )
   );

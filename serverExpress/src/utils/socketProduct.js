@@ -1,4 +1,4 @@
-const ProductManager = require("../Manager/archivo/productManager");
+const ProductManager = require("../Daos/archivo/productManager");
 
 const productManager = new ProductManager();
 

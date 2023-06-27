@@ -1,66 +1,21 @@
 const { Router } = require("express");
-const productManager = require("../Manager/mongo/productMongo.js");
-const { chekLogin } = require("../middleware/chekLogin.js");
+const {
+  index,
+  show,
+  store,
+  update,
+  destroy,
+} = require("../controllers/productController");
 const productRouter = Router();
 
-productRouter.get("/", async (req, res) => {
-  try {
-    const { page = 1 } = req.query;
-    const prods = await productManager.getProducts(page);
+productRouter.get("/", index);
 
-    const { docs, hasPrevPage, hasNextPage, prevPage, nextPage } = prods;
-    res.render("products", {
-      products: docs,
-      hasNextPage,
-      hasPrevPage,
-      prevPage,
-      nextPage,
-      nombre: null,
-    });
-    console.log(req.session);
-  } catch (error) {
-    console.log(error);
-  }
-});
+productRouter.get("/:pid", show);
 
-productRouter.get("/:pid", async (req, res) => {
-  try {
-    const prod = await product.getProductById(req.params.pid);
-    res.send(prod);
-  } catch (error) {
-    console.log(error);
-  }
-});
+productRouter.post("/", store);
 
-productRouter.post("/", async (req, res) => {
-  try {
-    const prod = req.body;
-    const newProd = await product.addProducts(prod);
-    res.send(newProd);
-  } catch (error) {
-    console.log(error);
-  }
-});
+productRouter.put("/:pid", update);
 
-productRouter.put("/:pid", async (req, res) => {
-  try {
-    const updatedProd = await product.updateProduct(
-      parseInt(req.params.pid),
-      req.body
-    );
-    res.send(updatedProd);
-  } catch (error) {
-    console.log(error);
-  }
-});
-
-productRouter.delete("/:pid", async (req, res) => {
-  try {
-    const deletedProd = await product.deleteProduct(parseInt(req.params.pid));
-    res.send(deletedProd);
-  } catch (error) {
-    console.log(error);
-  }
-});
+productRouter.delete("/:pid", destroy);
 
 module.exports = productRouter;
