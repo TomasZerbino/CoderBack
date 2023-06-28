@@ -6,9 +6,16 @@ const {
   update,
   destroy,
 } = require("../controllers/productController");
+const { passportCall } = require("../passport-jwt/passportCall");
 const productRouter = Router();
 
-productRouter.get("/", index);
+productRouter.get(
+  "/",
+  passportCall("jwt", {
+    session: false,
+  }),
+  index
+);
 
 productRouter.get("/:pid", show);
 

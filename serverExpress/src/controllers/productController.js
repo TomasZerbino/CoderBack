@@ -5,16 +5,15 @@ class ProductController {
     try {
       const { page = 1 } = req.query;
       const prods = await productService.getProducts(page);
-
+      const user = req.user;
       const { docs, hasPrevPage, hasNextPage, prevPage, nextPage } = prods;
-
       res.render("products", {
         products: docs,
         hasNextPage,
         hasPrevPage,
         prevPage,
         nextPage,
-        nombre: null,
+        nombre: user ? user.user.first_name : null,
       });
     } catch (error) {
       console.log(error);
