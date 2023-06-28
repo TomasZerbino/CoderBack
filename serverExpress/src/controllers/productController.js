@@ -7,6 +7,7 @@ class ProductController {
       const prods = await productService.getProducts(page);
 
       const { docs, hasPrevPage, hasNextPage, prevPage, nextPage } = prods;
+
       res.render("products", {
         products: docs,
         hasNextPage,

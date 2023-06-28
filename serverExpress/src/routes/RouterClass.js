@@ -37,7 +37,7 @@ class RouterClass {
       return res.send({ status: "error", error: "Not autorized" });
 
     const token = autHeader.split(" ")[1];
-    const user = jwt.verify(token, "frasesecreta");
+    const user = jwt.verify(token, process.env.JWT_SECRET_KEY);
     if (!policies.includes(user.role.toUpperCase())) {
       return res
         .status(403)

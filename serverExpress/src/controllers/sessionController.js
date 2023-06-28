@@ -6,7 +6,6 @@ class SessionController {
   async login(req, res) {
     try {
       const { user } = req;
-
       const access_token = generateToken({
         email: user.email,
         first_name: user.first_name,
@@ -14,9 +13,7 @@ class SessionController {
         role: user.role ? user.role : "user",
       });
 
-      res
-        .cookie("coderCookieToken", access_token)
-        .send({ message: "login success", access_token });
+      res.cookie("coderCookieToken", access_token).redirect("/products");
     } catch (error) {
       console.log(error);
     }
