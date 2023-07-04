@@ -22,22 +22,18 @@ class UserController {
     }
   }
 
-  //   async show(req, res) {
-  //     try {
-  //       const users = await userManager.getUserById(req.params.pid);
-  //       res.send(users);
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   }
+  async show(req, res) {
+    try {
+      const user = await userService.getUserById(req.params.uid);
+      res.send(user);
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   async store(req, res) {
     try {
       let user = req.body;
-
-      let userDB = await userModel.findOne({ email: user.email });
-
-      if (userDB) return res.send("Usuario ya existente");
 
       if (!user.first_name || !user.last_name) {
         return res.send("Todos los campos son requeridos");
@@ -50,7 +46,7 @@ class UserController {
         password: createHash(user.password),
       };
 
-      let result = await userModel.create(newUser);
+      let result = await userService.addUser(newUser);
       res.send(result);
     } catch (error) {
       return done(error);
@@ -62,7 +58,7 @@ class UserController {
       const { uid } = req.params;
       let user = req.body;
 
-      let userDB = await userModel.findOne({ email: user.email });
+      let userDB = await userService.getById();
 
       if (!userDB) return res.send("Usuario no existente");
 
@@ -76,7 +72,7 @@ class UserController {
         email: user.email,
       };
 
-      let result = await userModel.updateOne({ _id: uid }, updatedUser);
+      let result = await userService.updateUser({ _id: uid }, updatedUser);
       res.send(result);
     } catch (error) {
       return done(error);
@@ -87,7 +83,7 @@ class UserController {
     try {
       let { uid } = req.params;
 
-      let result = await userModel.deleteOne({ _id: uid });
+      let result = await userService.deleteUser({ _id: uid });
       res.send(result);
     } catch (error) {
       console.log(error);

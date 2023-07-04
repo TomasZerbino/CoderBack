@@ -4,6 +4,7 @@ const {
   store,
   update,
   destroy,
+  show,
 } = require("../controllers/userController");
 const { isAdmin } = require("../middleware/isAdmin");
 
@@ -11,7 +12,7 @@ const userRouter = Router();
 
 userRouter.get("/", isAdmin, index);
 
-// userRouter.get("/:uid");
+userRouter.get("/:uid", show);
 
 userRouter.post("/", store);
 

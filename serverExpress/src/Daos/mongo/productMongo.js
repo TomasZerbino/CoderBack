@@ -30,7 +30,7 @@ class ProductDaoMongo {
   }
   async update(pid, prod) {
     try {
-      return await productModel.updateOne({ _id: pid }, { prod });
+      return await productModel.update({ _id: pid }, { prod });
     } catch (error) {
       return new Error(error);
     }
