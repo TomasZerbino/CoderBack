@@ -1,7 +1,7 @@
 const { promises } = require("fs");
 const fsp = promises;
 
-class ProductManager {
+class ProductDaoFile {
   constructor() {
     this.path = "./prods.json";
   }
@@ -81,27 +81,6 @@ class ProductManager {
   }
 }
 
-const prods = new ProductManager();
+const prods = new ProductDaoFile();
 
-// prods.addProducts(
-//   "producto prueba",
-//   "Este es un producto prueba",
-//   200,
-//   "Sin imagen",
-//   "25"
-// );
-
-// prods.getProducts().then((res) => console.log(res));
-
-// prods.getProductById(2).then((res) => console.log(res));
-
-// prods.deleteProduct(2);
-
-// const cambios = {
-//   thumbnail: "imagen.12345",
-//   price: 123,
-// };
-
-// prods.updateProduct(4, cambios);
-
-module.exports = ProductManager;
+module.exports = ProductDaoFile;

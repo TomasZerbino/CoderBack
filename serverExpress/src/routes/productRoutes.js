@@ -7,6 +7,7 @@ const {
   destroy,
 } = require("../controllers/productController");
 const { passportCall } = require("../passport-jwt/passportCall");
+
 const productRouter = Router();
 
 productRouter.get(

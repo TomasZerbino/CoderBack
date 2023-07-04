@@ -1,7 +1,7 @@
 const { productModel } = require("../../models/product.model");
 
-class ProductManagerMongo {
-  async getProducts(pages) {
+class ProductDaoMongo {
+  async get(pages) {
     try {
       const prods = await productModel.paginate(
         {},
@@ -12,34 +12,30 @@ class ProductManagerMongo {
       return new Error(error);
     }
   }
-  async getProductById(pid) {
+  async getById(pid) {
     try {
-      return await productModel.findOne({ _id: pid });
+      const prod = await productModel.findOne({ _id: pid });
+      return prod;
     } catch (error) {
       return new Error(error);
     }
   }
-  async addProduct(newProd) {
+  async create(newProd) {
     try {
-      return await productModel.create(newProd);
+      const prodAdded = await productModel.create(newProd);
+      return prodAdded;
     } catch (error) {
       return new Error(error);
     }
   }
-  async updateProduct(pid, prod) {
+  async update(pid, prod) {
     try {
       return await productModel.updateOne({ _id: pid }, { prod });
     } catch (error) {
       return new Error(error);
     }
   }
-  async deleteProduct(pid) {
-    try {
-      return await productModel.findOneAndDelete({ _id: pid });
-    } catch (error) {
-      return new Error(error);
-    }
-  }
+  async delete(pid) {}
 }
 
-module.exports = ProductManagerMongo;
+module.exports = ProductDaoMongo;

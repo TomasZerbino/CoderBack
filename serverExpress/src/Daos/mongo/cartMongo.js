@@ -1,6 +1,6 @@
 const { cartModel } = require("./models/cart.model");
 
-class cartManagerMongo {
+class cartDaoMongo {
   async getcarts() {
     const carts = await cartModel.find({});
   }
@@ -10,4 +10,4 @@ class cartManagerMongo {
   async deletecart() {}
 }
 
-module.exports = new cartManagerMongo();
+module.exports = new cartDaoMongo();

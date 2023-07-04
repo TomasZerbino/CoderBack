@@ -1,14 +1,12 @@
 const userModel = require("../models/user.model");
+const { userService } = require("../service");
 const { createHash } = require("../utils/bcryptHash");
 
 class UserController {
   async index(req, res) {
     try {
       const { page = 1 } = req.query;
-      const users = await userModel.paginate(
-        {},
-        { limit: 10, page: pages, lean: true }
-      );
+      const users = userService.getUsers(page);
       const { docs, hasPrevPage, hasNextPage, prevPage, nextPage } = users;
 
       res.render("users", {

@@ -2,7 +2,7 @@ const { promises } = require("fs");
 const fs = require("fs");
 const fsp = promises;
 
-class CartManager {
+class CartDaoFile {
   constructor() {
     this.path = "./cart.json";
   }
@@ -72,4 +72,4 @@ class CartManager {
   }
 }
 
-module.exports = CartManager;
+module.exports = CartDaoFile;

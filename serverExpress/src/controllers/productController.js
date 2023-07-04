@@ -6,6 +6,7 @@ class ProductController {
       const { page = 1 } = req.query;
       const prods = await productService.getProducts(page);
       const user = req.user;
+
       const { docs, hasPrevPage, hasNextPage, prevPage, nextPage } = prods;
       res.render("products", {
         products: docs,
@@ -32,7 +33,7 @@ class ProductController {
   async store(req, res) {
     try {
       const prod = req.body;
-      const newProd = await productService.addProducts(prod);
+      const newProd = await productService.addProduct(prod);
       res.send(newProd);
     } catch (error) {
       console.log(error);

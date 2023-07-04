@@ -1,6 +1,6 @@
 const { userModel } = require("../../models/user.model");
 
-class UserManagerMongo {
+class UserDaoMongo {
   async getUsers(pages) {
     const users = await userModel.paginate(
       {},
@@ -22,4 +22,4 @@ class UserManagerMongo {
   }
 }
 
-module.exports = UserManagerMongo;
+module.exports = UserDaoMongo;
