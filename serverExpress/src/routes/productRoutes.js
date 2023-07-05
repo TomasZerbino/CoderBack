@@ -7,6 +7,7 @@ const {
   destroy,
 } = require("../controllers/productController");
 const { passportCall } = require("../passport-jwt/passportCall");
+const { isAdmin } = require("../middleware/isAdmin");
 
 const productRouter = Router();
 
@@ -20,10 +21,10 @@ productRouter.get(
 
 productRouter.get("/:pid", show);
 
-productRouter.post("/", store);
+productRouter.post("/", isAdmin, store);
 
-productRouter.put("/:pid", update);
+productRouter.put("/:pid", isAdmin, update);
 
-productRouter.delete("/:pid", destroy);
+productRouter.delete("/:pid", isAdmin, destroy);
 
 module.exports = productRouter;

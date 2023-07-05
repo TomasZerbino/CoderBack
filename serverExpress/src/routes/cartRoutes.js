@@ -1,9 +1,15 @@
 const { Router } = require("express");
 const cartManager = require("../Daos/archivo/CartFile");
+const { sendSms } = require("../utils/sendSms");
 
 const cart = new cartManager();
 
 const cartRouter = Router();
+
+// cartRouter.get("/sms", async (req, res) => {
+//   await sendSms();
+//   res.send("sms env");
+// });
 
 cartRouter.get("/:cid", async (req, res) => {
   try {
